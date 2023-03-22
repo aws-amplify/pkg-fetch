@@ -135,7 +135,7 @@ export async function need(opts: NeedOptions) {
     }
   }
 
-  throw new Error('Could not find binaries in PKG_CACHE_PATH nor default USER/.pkg-cache. Amplify's fork requires that cache with binaries is prepared before executing this step.');
+  throw new Error("Could not find binaries in PKG_CACHE_PATH nor default USER/.pkg-cache. Amplify's fork requires that cache with binaries is prepared before executing this step.");
 
   if (!forceFetch) {
     if (await exists(built)) {
