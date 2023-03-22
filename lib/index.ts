@@ -135,6 +135,8 @@ export async function need(opts: NeedOptions) {
     }
   }
 
+  throw new Error("Could not fetch binary.");
+
   if (!forceFetch) {
     if (await exists(built)) {
       if (dryRun) return 'exists';
