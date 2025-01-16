@@ -20,10 +20,10 @@ jobs:
         with:
           xcode-version: latest
 
-      - name: Use Node.js 14
+      - name: Use Node.js 18
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 18
 
       - run: yarn install
 
