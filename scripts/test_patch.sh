@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 node_range=$1
 
 if [ -z "$node_range" ]; then
@@ -9,7 +11,7 @@ fi
 echo "Applying patches for $node_range"
 
 command="npm run applyPatches -- --node-range $node_range --quiet-extraction"
-output=$($command)
+output=$(NO_COLOR=1 $command)
 status=$?
 
 if [ $status -ne 0 ]; then
