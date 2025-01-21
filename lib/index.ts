@@ -1,4 +1,5 @@
-import fs from 'fs-extra';
+import { unlinkSync } from 'fs';
+import { stat } from 'fs/promises';
 import path from 'path';
 import semver from 'semver';
 
@@ -37,7 +38,7 @@ async function download(
 
 async function exists(file: string) {
   try {
-    await fs.stat(file);
+    await stat(file);
     return true;
   } catch (error) {
     return false;
@@ -62,9 +63,7 @@ export function satisfyingNodeVersion(nodeRange: string) {
   const nodeVersion = versions.pop();
 
   if (!nodeVersion) {
-    throw wasReported(
-      `No available node version satisfies '${nodeRange}'`
-    );
+    throw wasReported(`No available node version satisfies '${nodeRange}'`);
   }
 
   return nodeVersion;
@@ -84,7 +83,6 @@ export function getNodeVersion(nodeRange: string) {
   const nodeVersion = satisfyingNodeVersion(nodeRange);
   return nodeVersion;
 }
-
 
 export async function need(opts: NeedOptions) {
   // eslint-disable-line complexity
@@ -131,7 +129,7 @@ export async function need(opts: NeedOptions) {
       }
 
       log.info('Binary hash does NOT match. Re-fetching...');
-      fs.unlinkSync(fetched);
+      unlinkSync(fetched);
     }
   }
 
@@ -155,7 +153,7 @@ export async function need(opts: NeedOptions) {
         return fetched;
       }
 
-      fs.unlinkSync(fetched);
+      unlinkSync(fetched);
       throw wasReported('Binary hash does NOT match.');
     }
 
